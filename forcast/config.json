@@ -1,0 +1,10 @@
+{
+  "WEATHERBIT_API_KEY": "3b9192eaad334e20a398f85be031f766",
+  "S3_BUCKET": "dummy-bucket",
+  "S3_PREFIX": "weather-data",
+  "EXECUTION_MODE": "local",
+  "LOCAL_OUTPUT_DIR": "./output/forcast",
+  "VERIFY_SSL": "false",
+  "FORECAST_HOURS": 96
+}
+
