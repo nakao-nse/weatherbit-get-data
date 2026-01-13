@@ -5,7 +5,7 @@ import logging
 import time
 import requests
 import urllib3
-from typing import Dict
+from typing import Dict, Optional
 
 # SSL警告を抑制（ローカル実行時のみ使用）
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -20,17 +20,28 @@ class WeatherbitClientForecast:
     MAX_RETRIES = 3
     RETRY_DELAY_BASE = 1  # 秒
     
-    def __init__(self, api_key: str, verify_ssl: bool = True):
+    def __init__(self, api_key: str, verify_ssl: bool = True, proxy_url: Optional[str] = None):
         """
         初期化
         
         Args:
             api_key: Weatherbit API Key
             verify_ssl: SSL証明書の検証を行うか（デフォルト: True）
+            proxy_url: Proxy URL（オプショナル、例: "http://proxy.example.com:8080"）
         """
         self.api_key = api_key
         self.verify_ssl = verify_ssl
         self.session = requests.Session()
+        
+        # Proxy設定
+        if proxy_url:
+            # requestsライブラリのproxies形式に変換
+            self.proxies = {
+                "http": proxy_url,
+                "https": proxy_url
+            }
+        else:
+            self.proxies = None
     
     def get_hourly_forecast(
         self,
@@ -71,7 +82,8 @@ class WeatherbitClientForecast:
                     self.BASE_URL,
                     params=params,
                     timeout=30,
-                    verify=self.verify_ssl
+                    verify=self.verify_ssl,
+                    proxies=self.proxies
                 )
                 response.raise_for_status()
                 

@@ -60,7 +60,11 @@ def lambda_handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         logger.info(f"Acquisition date (JST): {acquisition_date}")
         
         # クライアントとコンバーターを初期化
-        client = WeatherbitClientForecast(config.api_key, verify_ssl=config.verify_ssl)
+        client = WeatherbitClientForecast(
+            config.api_key,
+            verify_ssl=config.verify_ssl,
+            proxy_url=config.proxy_url if config.proxy_url else None
+        )
         converter = CSVConverterForecast()
         
         # 保存ハンドラを初期化

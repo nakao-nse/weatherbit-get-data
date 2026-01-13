@@ -3,7 +3,7 @@
   "S3_BUCKET": "dummy-bucket",
   "S3_PREFIX": "weather-data",
   "EXECUTION_MODE": "local",
-  "LOCAL_OUTPUT_DIR": "./output/forcast",
+  "LOCAL_OUTPUT_DIR": "./output/history",
   "VERIFY_SSL": "false",
   "FORECAST_HOURS": 96
 }

@@ -18,6 +18,7 @@ class Config:
     EXECUTION_MODE = "EXECUTION_MODE"
     LOCAL_OUTPUT_DIR = "LOCAL_OUTPUT_DIR"
     VERIFY_SSL = "VERIFY_SSL"
+    PROXY_URL = "PROXY_URL"
     
     # 設定ファイル名
     CONFIG_FILE = "config.json"
@@ -94,6 +95,12 @@ class Config:
         else:
             # AWS実行時は常にTrue
             self.verify_ssl = True
+        
+        # Proxy URL設定（オプショナル、AWS実行時のみ使用）
+        self.proxy_url = os.getenv(
+            self.PROXY_URL,
+            config_data.get("PROXY_URL", "")
+        )
     
     def _get_required_env(self, env_name: str) -> str:
         """必須環境変数を取得"""
